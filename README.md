@@ -20,7 +20,7 @@ This is a simple React web application that fetches weather data and supports Pr
 
 ## Live Site
 
-http
+https://moonlit-travesseiro-199352.netlify.app
 
 ## How to Run the Project
 
