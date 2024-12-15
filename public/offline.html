@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Weather App</title>
+        <style type="text/css">
+            html {
+                height: 100%;
+            }
+            body {
+                height: 100%;
+                margin: 0;
+                background: #0a1f44;
+                display: flex;
+                align-items: center;
+                text-align: center;
+                justify-content: center;
+            }
+        
+            .city {
+                align-items: center;
+                width: 80%;
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                padding: 40px 8%;
+                border-radius: 20px;
+                background: #fff;
+            }
+
+            .offline-message {
+                color: red;
+                font-size: 1.2em;
+                margin-bottom: 20px;
+            }
+
+            .city-name {
+                font-size: 2em;
+            }
+
+            .city-temp {
+                font-size: 1.5em;
+                margin-top: 10px;
+            }
+
+            .info {
+                margin-top: 20px;
+            }
+
+            .info img {
+                width: 50px;
+                height: 50px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="city">
+            <p class="offline-message">No internet connection. Showing the last available weather data:</p>
+            <div id="last-weather" style="display: none;">
+                <h3 id="city-name"></h3>
+                <div id="city-temp"></div>
+                <div class="info">
+                    <img id="city-icon" src="" alt="" />
+                    <p id="weather-description"></p>
+                </div>
+            </div>
+            <p id="no-data-message" style="display: none;">No weather data available. Please connect to the internet to fetch new data.</p>
+        </div>
+        <script>
+            // Check for stored weather data in localStorage
+            const storedWeather = localStorage.getItem("Weather");
+
+            if (storedWeather) {
+                const weather = JSON.parse(storedWeather);
+
+                // Show the last weather data
+                document.getElementById("last-weather").style.display = "block";
+
+                // Populate weather data
+                document.getElementById("city-name").textContent = `${weather.name}, ${weather.sys.country}`;
+                document.getElementById("city-temp").innerHTML = `${Math.round(weather.main.temp)}&deg;C`;
+                document.getElementById("city-icon").src = `https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`;
+                document.getElementById("city-icon").alt = weather.weather[0].description;
+                document.getElementById("weather-description").textContent = weather.weather[0].description;
+            } else {
+                // No data in localStorage
+                document.getElementById("no-data-message").style.display = "block";
+            }
+        </script>
+    </body>
+</html>
